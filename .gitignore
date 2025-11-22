@@ -1,0 +1,6 @@
+# ignore everything in the repository
+*
+
+!.gitignore
+
+!/.config/
