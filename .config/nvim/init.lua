@@ -42,6 +42,9 @@ vim.opt.termguicolors = true
 -- always display tabline
 vim.o.showtabline = 2
 
+-- sync with system's primary clipboard
+vim.o.clipboard = vim.o.clipboard + "unnamedplus"
+
 
 -- common Emacs-like editor hotkeys
 -- copy
