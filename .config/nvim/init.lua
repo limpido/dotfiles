@@ -43,7 +43,14 @@ vim.opt.termguicolors = true
 vim.o.showtabline = 2
 
 -- sync with system's primary clipboard
-vim.o.clipboard = vim.o.clipboard + "unnamedplus"
+vim.o.clipboard = "unnamedplus"
+
+-- lsp config
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+vim.lsp.enable('pyright')
+vim.lsp.enable('gopls')
+vim.lsp.enable('fish_lsp')
+vim.lsp.enable('lua_ls')
 
 
 -- common Emacs-like editor hotkeys
