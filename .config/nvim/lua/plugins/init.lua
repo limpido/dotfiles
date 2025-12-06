@@ -26,7 +26,9 @@ return {
               ["<C-b>"] = cmp.mapping.scroll_docs(-4),
               ["<C-f>"] = cmp.mapping.scroll_docs(4),
               ["<C-Space>"] = cmp.mapping.complete(), -- Manually trigger completion
-              ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Enter to confirm
+              ["<CR>"] = cmp.mapping.confirm({
+			select = true,
+			behavior = cmp.ConfirmBehavior.Replace }), -- Enter to confirm
               ["<Tab>"] = cmp.mapping.select_next_item(), -- Tab to go down
               ["<S-Tab>"] = cmp.mapping.select_prev_item(), -- Shift+Tab to go up
             }),
