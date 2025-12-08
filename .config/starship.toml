@@ -81,7 +81,6 @@ vimcmd_replace_symbol = '[<](bold fg:purple)'
 vimcmd_visual_symbol = '[<](bold fg:yellow)'
 
 [directory]
-#style = "bold fg:blue"
 truncation_length = 4
 style = "bold sapphire"
 
@@ -94,10 +93,10 @@ style = "bold green"
 format = '[$time]($style) '
 
 [git_commit]
-tag_symbol = " tag "
+tag_symbol = "  "
 
 [git_branch]
-symbol = ""
+symbol = " "
 style = "bold mauve"
 
 [git_status]
