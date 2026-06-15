@@ -1,0 +1,15 @@
+[user]
+	name = limpido
+	email = 43034953+limpido@users.noreply.github.com
+[init]
+	defaultBranch = master
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+        editor = nvim
+[alias]
+	amend = commit --amend --no-edit
+	co = checkout

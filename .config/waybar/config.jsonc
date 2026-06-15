@@ -1,0 +1,142 @@
+// niri-native Waybar config — Catppuccin Mocha, JetBrainsMono Nerd Font
+// Layout:
+//   left   -> window dots (one per window on the focused workspace; focused = filled)
+//   center -> title of the focused window
+//   right  -> time, date(+calendar), cpu, memory, temp, battery, wifi, bluetooth, input method
+{
+    "layer": "top",
+    "position": "top",
+    "height": 33,
+    "spacing": 6,
+    "reload_style_on_change": true,
+
+    "modules-left": [
+        "custom/window-dots"
+    ],
+    "modules-center": [
+        "niri/window"
+    ],
+    "modules-right": [
+        "clock#time",
+        "clock#date",
+        "cpu",
+        "memory",
+        "temperature",
+        "battery",
+        "network",
+        "bluetooth",
+        "custom/fcitx"
+    ],
+
+    // ---------- left: window navigation dots ----------
+    "custom/window-dots": {
+        "exec": "~/.config/waybar/scripts/niri-window-dots.py",
+        "tooltip": false
+    },
+
+    // ---------- center: focused window title ----------
+    "niri/window": {
+        "format": "{title}",
+        "max-length": 90,
+        "tooltip": false
+    },
+
+    // ---------- right ----------
+    "clock#time": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "{:%Z (UTC%z)}",
+	"timezone": "Asia/Shanghai"
+    },
+
+    "clock#date": {
+        "format": " {:%Y/%m/%d}",
+        // Hover shows the calendar; left-click toggles month <-> full-year view.
+        // Today is rendered in a different color (see calendar.format.today).
+        "tooltip-format": "<tt><big>{calendar}</big></tt>",
+        "actions": {
+            "on-click": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        },
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#cba6f7'><b>{}</b></span>",
+                "days":     "<span color='#cdd6f4'>{}</span>",
+                "weekdays": "<span color='#89b4fa'><b>{}</b></span>",
+                "weeks":    "<span color='#6c7086'>{}</span>",
+                "today":    "<span color='#f38ba8'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "cpu": {
+        "interval": 2,
+        "format": " {usage}%",
+        "tooltip": false
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": "󰍛 {percentage}%",
+        "tooltip-format": "RAM  {used:0.1f} / {total:0.1f} GiB ({percentage}%)\nSwap {swapUsed:0.1f} / {swapTotal:0.1f} GiB ({swapPercentage}%)"
+    },
+
+    "temperature": {
+        // x86_pkg_temp (CPU package). If this ever reads wrong, swap to:
+        //   "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon7/temp1_input"
+        "thermal-zone": 3,
+        "interval": 2,
+        "critical-threshold": 85,
+        "format": " {temperatureC}°C",
+        "format-critical": "{icon} {temperatureC}°C",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "battery": {
+        "interval": 10,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰂂"],
+        "tooltip-format": "{timeTo} ({power}W)"
+    },
+
+    "network": {
+        "interface": "wlan0",
+        "interval": 5,
+        "format-wifi": "  {essid}",
+        "format-ethernet": " {ifname}",
+        "format-disconnected": "󰤮",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+        "tooltip-format-disconnected": "disconnected",
+        "on-click": "alacritty -e nmtui"
+    },
+
+    "bluetooth": {
+        "format": "󰂯 {status}",
+        "format-on": "",
+        "format-off": "󰂲",
+        "format-connected": "  {device_alias}",
+        "tooltip-format": "{controller_alias}\n{status}",
+        "tooltip-format-connected": "{controller_alias}\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "on-click": "blueman-manager"
+    },
+
+    "custom/fcitx": {
+        "exec": "~/.config/waybar/scripts/fcitx5-im.sh",
+        "return-type": "json",
+        "interval": 1,
+        "format": "{}",
+        "on-click": "fcitx5-remote -t"
+    }
+}

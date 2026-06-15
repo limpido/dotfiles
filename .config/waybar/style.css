@@ -1,0 +1,110 @@
+/* Catppuccin Mocha — https://github.com/catppuccin/catppuccin */
+@define-color base     #1e1e2e;
+@define-color mantle   #181825;
+@define-color crust    #11111b;
+@define-color text     #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color subtext1 #bac2de;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
+@define-color overlay0 #6c7086;
+@define-color blue     #89b4fa;
+@define-color lavender #b4befe;
+@define-color sapphire #74c7ec;
+@define-color sky      #89dceb;
+@define-color teal     #94e2d5;
+@define-color green    #a6e3a1;
+@define-color yellow   #f9e2af;
+@define-color peach    #fab387;
+@define-color maroon   #eba0ac;
+@define-color red      #f38ba8;
+@define-color mauve    #cba6f7;
+@define-color pink     #f5c2e7;
+@define-color flamingo #f2cdcd;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background-color: @base;
+    color: @text;
+}
+
+tooltip {
+    background-color: @mantle;
+    border: 1px solid @surface1;
+    border-radius: 8px;
+}
+tooltip label {
+    color: @text;
+}
+
+/* shared pill look */
+#custom-window-dots,
+#window,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#battery,
+#network,
+#bluetooth,
+#custom-fcitx {
+    background-color: @surface0;
+    padding: 0 10px;
+    margin: 4px 0;
+    border-radius: 6px;
+}
+
+/* left: window navigation dots */
+#custom-window-dots {
+    background-color: transparent;
+    color: @overlay0;          /* empty circles ○ */
+    font-size: 18px;
+    letter-spacing: 0px;
+    padding: 0 8px;
+}
+/* niri's focused window renders as ● in @text via this same module;
+   to color the filled dot differently we'd need per-glyph markup, which
+   GTK CSS can't target — the fill itself signals focus. */
+
+/* center: focused window title */
+#window {
+    background-color: transparent;
+    color: @subtext1;
+}
+window#waybar.empty #window {
+    background-color: transparent;
+}
+
+/* right side */
+#clock.time {
+    color: @lavender;
+    font-weight: 700;
+}
+#clock.date    { color: @blue; }
+#cpu           { color: @green; }
+#memory        { color: @sky; }
+#temperature   { color: @yellow; }
+#temperature.critical { color: @crust; background-color: @red; }
+
+#battery       { color: @green; }
+#battery.warning  { color: @peach; }
+#battery.critical { color: @crust; background-color: @red; }
+#battery.charging { color: @teal; }
+    
+#network          { color: @sapphire; }
+#network.disconnected { color: @overlay0; }
+
+#bluetooth            { color: @blue; }
+#bluetooth.off        { color: @overlay0; }
+#bluetooth.connected  { color: @sky; }
+
+#custom-fcitx  { color: @mauve; }
