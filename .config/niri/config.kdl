@@ -5,9 +5,13 @@
 
 // --- Environment (niri sets these for all child apps; no shell dependency) ---
 environment {
-    DISPLAY ":0"                          // for the odd XWayland app
+    // DISPLAY is set automatically by niri's managed xwayland-satellite. Do NOT
+    // hardcode it: the X display number varies (here it's :1, and :0 is a stale
+    // root-owned server that breaks X11 apps like Steam with an auth error).
     QT_QPA_PLATFORM "wayland;xcb"
     QT_QPA_PLATFORMTHEME "kde"            // load plasma-integration so Qt apps honor kdeglobals (dark theme)
+    XDG_MENU_PREFIX "plasma-"             // KDE "Open With" tree reads ${XDG_MENU_PREFIX}applications.menu; only plasma-applications.menu is installed
+    XDG_CONFIG_DIRS "/etc/xdg"            // must be set: empty value stops KDE finding /etc/xdg/menus/, leaving Open With empty
     GTK_THEME "Breeze-Dark"               // dark for GTK3 apps (GTK4/libadwaita use the portal pref below)
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     MOZ_ENABLE_WAYLAND "1"
@@ -330,6 +334,12 @@ animations {
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
+}
+
+// Open Alacritty at one third of the screen width by default.
+window-rule {
+    match app-id=r#"^Alacritty$"#
+    default-column-width { proportion 0.33333; }
 }
 
 // Work around WezTerm's initial configure bug
